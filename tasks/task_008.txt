@@ -1,0 +1,43 @@
+# Task ID: 8
+# Title: Enforce Performance and Accessibility Guardrails
+# Status: pending
+# Dependencies: 1, 3
+# Priority: medium
+# Description: Set CLS/LCP budgets, run Axe audits in CI, and implement image lazy-loading.
+# Details:
+Configure Lighthouse and Axe audits in CI. Set CLS < 0.1 and LCP < 2.5s budgets. Implement image lazy-loading. Ensure all colors pass WCAG AA contrast.
+
+# Test Strategy:
+Run Lighthouse and Axe audits in CI. Test on mobile and desktop. Verify image lazy-loading and color contrast.
+
+# Subtasks:
+## 1. Set up Lighthouse CI integration [pending]
+### Dependencies: None
+### Description: Configure Lighthouse CI in your continuous integration pipeline to automate accessibility and performance testing
+### Details:
+Install Lighthouse CI using npm, create a basic configuration file, and set up GitHub Actions workflow (or equivalent CI system). Include configuration for both performance and accessibility audits. Reference the GoogleChrome/lighthouse-ci repository for implementation details.
+
+## 2. Implement Axe DevTools integration [pending]
+### Dependencies: 8.1
+### Description: Integrate Axe DevTools alongside Lighthouse for more comprehensive accessibility testing
+### Details:
+Install Axe DevTools, configure it to run in the same CI pipeline as Lighthouse. Focus on setting up automated accessibility testing that complements Lighthouse's checks with Axe's more specialized accessibility validations.
+
+## 3. Configure CLS/LCP performance budgets [pending]
+### Dependencies: 8.1
+### Description: Set up Core Web Vitals budgets for Cumulative Layout Shift and Largest Contentful Paint
+### Details:
+Define threshold values for CLS and LCP in your Lighthouse configuration. Create a performance budget that aligns with Google's recommended values (CLS < 0.1, LCP < 2.5s). Implement monitoring to track these metrics over time.
+
+## 4. Implement image lazy-loading and color contrast checks [pending]
+### Dependencies: 8.2, 8.3
+### Description: Add image optimization techniques and ensure proper color contrast for accessibility
+### Details:
+Implement lazy-loading for images using native loading='lazy' or a JavaScript solution. Configure Lighthouse and Axe to specifically check for image optimization and WCAG color contrast compliance (minimum 4.5:1 for normal text).
+
+## 5. Set up comprehensive audit reporting [pending]
+### Dependencies: 8.1, 8.2, 8.3, 8.4
+### Description: Create a reporting system to track and visualize test results over time
+### Details:
+Configure Lighthouse CI to save results to a persistent storage. Implement a dashboard to visualize performance and accessibility trends. Set up automated notifications for when metrics fall below thresholds. Include detailed reports that highlight specific issues that need addressing.
+

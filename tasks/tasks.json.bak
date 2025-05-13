@@ -1,0 +1,582 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Project Repository and Initial Stack",
+      "description": "Install and configure shadcn/ui in the existing Next.js 15 (App Router) project with TypeScript and Tailwind CSS, ensuring compatibility with React 19. Follow a detailed, auditable workflow for each step, including CLI usage, component addition, integration testing, and documentation.",
+      "status": "in-progress",
+      "dependencies": [],
+      "priority": "high",
+      "details": "Install shadcn/ui in the existing Next.js 15 project using the CLI command 'pnpm dlx shadcn@latest init'. Follow the prompts to configure shadcn/ui with the appropriate style option (Default or New York), and confirm component and config paths. Verify that the components/ui directory and shadcn-ui.json (or similar) are created, and that new dependencies are added to package.json. Add essential UI components (e.g., Button, Input, Card) using the CLI, and verify that the corresponding files exist and use Tailwind classes. Test the integration by creating a test page (app/shadcn-test/page.tsx) that imports and renders a shadcn/ui component, then start the dev server and verify correct rendering, theming, and compatibility with React 19 and Tailwind CSS. Document the installation steps, added components, and example usage in docs/shadcn-usage.md, and optionally update README.md.",
+      "testStrategy": "Verify shadcn/ui components render correctly in the application by visiting the test page. Test theming functionality and confirm component imports work as expected. Ensure there are no console errors or conflicts with React 19 and Tailwind CSS. Check that documentation accurately reflects the setup and usage.",
+      "subtasks": [
+        {
+          "id": 1.1,
+          "title": "Install shadcn/ui using CLI",
+          "description": "Open terminal and navigate to project root: cd /Users/lucasraza/Projects/app-leads/hipaadevelopers. Run 'pnpm dlx shadcn@latest init' and follow prompts: choose style (Default or New York), confirm component and config paths. Verify that components/ui/ directory and shadcn-ui.json (or similar) exist in the root, and that new dependencies are present in package.json.",
+          "status": "pending"
+        },
+        {
+          "id": 1.2,
+          "title": "Add essential UI components",
+          "description": "In terminal, add Button: 'pnpm dlx shadcn@latest add button'. Optionally add more: 'pnpm dlx shadcn@latest add input', 'pnpm dlx shadcn@latest add card'. Verify that files like components/ui/button.tsx exist and use Tailwind classes.",
+          "status": "pending"
+        },
+        {
+          "id": 1.3,
+          "title": "Test component integration",
+          "description": "Create a test page at app/shadcn-test/page.tsx that imports and renders a shadcn/ui Button. Start the dev server with 'pnpm dev', visit /shadcn-test in the browser, and verify the Button renders with correct styles, no console errors, theming works, and compatibility with React 19 and Tailwind CSS.",
+          "status": "pending"
+        },
+        {
+          "id": 1.4,
+          "title": "Document shadcn/ui usage",
+          "description": "Create docs/shadcn-usage.md. Add installation steps, list of added components, and example usage code. Optionally update README.md with a summary.",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Integrate Headless WordPress CMS",
+      "description": "Set up WordPress as a headless CMS with wp-graphql plugin and configure managed container hosting with nightly backups.",
+      "details": "Deploy WordPress in a managed container. Install and configure the wp-graphql plugin. Ensure nightly backups are enabled. Document the CMS setup and API endpoints.",
+      "testStrategy": "Verify GraphQL queries return expected content. Confirm backups are scheduled and functional.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "WordPress Container Deployment",
+          "description": "Set up a secure Docker environment for WordPress with proper networking and persistent storage",
+          "dependencies": [],
+          "details": "Use Docker Compose to create a containerized WordPress setup with MariaDB. Configure Traefik for SSL/TLS termination and secure environment variables. Implement security best practices including container isolation and network security. Verify deployment with proper health checks.\n<info added on 2025-05-13T08:34:12.915Z>\n<update><timestamp>2025-05-13T08:34:09Z</timestamp><content>Docker Compose configuration has been created for a secure WordPress 6.4 environment with PHP 8.2 and MariaDB 10.11. The setup includes Traefik as a reverse proxy for SSL/TLS termination, ensuring encrypted communication. Security best practices are implemented: sensitive credentials are managed via environment variables and .env files, with Docker secrets recommended for production; WordPress security constants (DISALLOW_FILE_EDIT, AUTOMATIC_UPDATER_DISABLED) are set; container isolation and network security are enforced; and health checks are configured for all services. Persistent storage is ensured via volume mounts, and a backup script with retention policy is included. Next steps: copy docker/env.example to .env and fill in secure values, create necessary directories, and run docker compose up.</content></update>\n</info added on 2025-05-13T08:34:12.915Z>",
+          "status": "in-progress"
+        },
+        {
+          "id": 2,
+          "title": "WP-GraphQL Plugin Installation",
+          "description": "Install and configure the WP-GraphQL plugin in the WordPress container",
+          "dependencies": [
+            1
+          ],
+          "details": "Add WP-GraphQL as a dependency using Composer with WordPress Packagist. Configure plugin settings through the WordPress admin interface. Verify plugin activation and basic functionality. Implement proper version control for the plugin configuration.",
+          "status": "pending"
+        },
+        {
+          "id": 3,
+          "title": "GraphQL Endpoint Configuration",
+          "description": "Configure and secure the GraphQL API endpoint for external access",
+          "dependencies": [
+            2
+          ],
+          "details": "Set up proper authentication for the GraphQL endpoint. Configure CORS settings for API access. Implement rate limiting and security measures. Test endpoint functionality with sample queries. Ensure proper error handling and logging.",
+          "status": "pending"
+        },
+        {
+          "id": 4,
+          "title": "Nightly Backup Setup",
+          "description": "Implement automated nightly backups for WordPress data and database",
+          "dependencies": [
+            1
+          ],
+          "details": "Create backup scripts for WordPress files and database. Configure Docker volume backups for persistent storage. Set up cron jobs for nightly execution. Implement backup rotation and retention policies. Test backup and restore procedures.",
+          "status": "pending"
+        },
+        {
+          "id": 5,
+          "title": "Documentation of API Endpoints",
+          "description": "Create comprehensive documentation for all GraphQL API endpoints",
+          "dependencies": [
+            3
+          ],
+          "details": "Document all available GraphQL queries and mutations. Create example requests and responses. Document authentication requirements and error codes. Create a schema visualization. Organize documentation in a developer-friendly format.",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Implement Article Rendering and Index",
+      "description": "Fetch and render Markdown content from WordPress via GraphQL, convert to MDX, and display with syntax highlighting and responsive images.",
+      "details": "Create Next.js pages to fetch articles via GraphQL. Use MDX for rendering. Implement syntax highlighting and responsive image handling. Build a paginated article index with tag multi-select and URL-driven filter state.",
+      "testStrategy": "Test article rendering on mobile and desktop. Verify syntax highlighting and image responsiveness. Check tag filtering and URL state.",
+      "priority": "high",
+      "dependencies": [
+        1,
+        2
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Set up WordPress GraphQL API",
+          "description": "Configure WPGraphQL plugin in WordPress and implement caching for GraphQL requests to improve performance and avoid timeouts.",
+          "dependencies": [],
+          "details": "Install and activate the WPGraphQL plugin from the WordPress admin panel. Configure HTTP GET request caching to optimize query performance. Test basic queries to ensure proper data retrieval from WordPress.\n<info added on 2025-05-13T08:37:45.678Z>\nInstall and activate the WPGraphQL plugin from the WordPress admin panel. Configure HTTP GET request caching to optimize query performance. Test basic queries to ensure proper data retrieval from WordPress. <update><![CDATA[<timestamp>2025-05-13T08:37:41Z</timestamp>Implemented GraphQL client configuration in src/lib/wp-graphql/client.ts, including type-safe client setup, common post fragments, error handling, and logging. Added a test script (src/lib/wp-graphql/test.ts) for basic query testing, error handling, and connection verification. Configured Next.js (next.config.js) with Cache-Control headers for the GraphQL endpoint, image domain whitelisting, and enabled Server Actions. Installed required dependencies: graphql-request, graphql, and node-fetch. Next steps: Test the GraphQL endpoint, configure WordPress caching plugins as needed, and verify query performance.]]></update>\n</info added on 2025-05-13T08:37:45.678Z>",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Implement GraphQL data fetching layer",
+          "description": "Create a data fetching layer that queries WordPress content through GraphQL and handles response processing.",
+          "dependencies": [
+            1
+          ],
+          "details": "Develop GraphQL queries for different content types. Implement error handling and response normalization. Create utility functions for common data fetching patterns. Set up proper caching mechanisms to improve performance.\n<info added on 2025-05-13T08:39:55.420Z>\nDeveloped a comprehensive GraphQL data fetching layer with the following components:\n\n1. **TypeScript Types**: Defined interfaces for WPPost, WPImage, WPTaxonomyNode, and response types for all queries, including PageInfo and connection types, ensuring type safety throughout the application.\n\n2. **GraphQL Queries**: Implemented queries for posts, categories, tags, and site settings, with built-in pagination support and reusable fragments for maintainability and consistency.\n\n3. **Service Layer**: Created a service layer with type-safe query functions, robust pagination handling, comprehensive error handling, and default configurations for common use cases.\n\n4. **React Hooks**: Introduced custom hooks (usePosts, usePost, useCategories, useTags) with support for infinite loading, SSR, and initial data hydration, along with loading and error states for improved user experience.\n\nNext steps include testing hooks in components, adding error boundaries, and implementing UI for loading states to ensure a resilient and user-friendly frontend.\n\n<update timestamp=\"2025-05-13T08:39:49Z\">\nThe data fetching layer now supports efficient, type-safe retrieval of WordPress content via GraphQL, with a focus on modularity, performance, and developer experience. Caching mechanisms and utility functions for common patterns have been integrated to optimize performance and reduce redundant requests. The layer is ready for integration with frontend components and further refinement based on real-world usage.\n</update>\n</info added on 2025-05-13T08:39:55.420Z>",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Build MDX conversion pipeline",
+          "description": "Create a system to convert WordPress content to MDX format, preserving metadata and content structure.",
+          "dependencies": [
+            2
+          ],
+          "details": "Implement content transformation from WordPress HTML to MDX. Handle frontmatter generation from WordPress metadata. Create a processing pipeline that maintains content relationships and hierarchies.\n<info added on 2025-05-13T08:41:24.575Z>\n<update timestamp=\"2025-05-13T08:41:17Z\">\nImplemented a robust data transformation layer for WordPress content, including:\n- **Transformation utilities** (src/lib/wp-graphql/transform.ts):\n  - Defined a TransformedPost interface for clean, structured data output.\n  - Implemented HTML cleaning and text extraction functions to remove WordPress-specific classes and styles.\n  - Added utilities for reading time and word count calculations.\n  - Developed image and heading extraction utilities to preserve content structure.\n  - Integrated date formatting helpers for consistent metadata.\n- **React hooks** (src/lib/wp-graphql/useTransformedPosts.ts):\n  - useTransformedPosts for fetching and transforming multiple posts with pagination support.\n  - useTransformedPost for single post data transformation.\n  - Memoized transformations for improved performance.\n  - Type-safe interfaces for reliable data handling.\n- **Key features implemented:**\n  - Clean HTML content (removes WP-specific classes/styles).\n  - Plain text extraction from HTML for excerpts and analysis.\n  - Reading time calculation.\n  - Clean excerpt generation.\n  - Featured image and metadata extraction.\n  - Consistent date formatting.\n  - Content structure extraction (headings).\n  - Category and tag handling.\n\n**Next steps:**\n- Add content sanitization for security.\n- Implement caching for transformed data to optimize performance.\n- Expand content analysis features (e.g., sentiment, keyword extraction).\n\n**MDX pipeline integration:**\n- Plan to extend the transformation layer to convert cleaned HTML and extracted metadata into MDX format, preserving frontmatter and content relationships.\n- Will handle image asset management and ensure proper linking within the MDX output.\n- Will maintain content hierarchies and metadata during conversion, supporting future article rendering and indexing workflows.\n</update>\n</info added on 2025-05-13T08:41:24.575Z>\n<info added on 2025-05-13T08:55:27.782Z>\nImplemented a robust MDX conversion pipeline for WordPress content, leveraging unified, remark, and rehype libraries for reliable HTML-to-MDX transformation. The pipeline now supports the following features:\n\n- **HTML to MDX Transformation:**\n  - Implemented `convertHtmlToMdx` function, which handles WordPress block patterns, alignment classes, and WordPress-specific markup, converting them to MDX components and standard Markdown.\n  - Ensured content structure and relationships are preserved during conversion.\n\n- **Code Block Processing:**\n  - Added `cleanCodeBlocks` function for proper code block conversion, including language detection and normalization for both fenced and inline code blocks.\n  - Integrated syntax highlighting support for code blocks.\n\n- **Image Processing:**\n  - Created `processImages` function to convert WordPress images to Next.js Image components, supporting srcset and responsive images.\n  - Implemented figure/figcaption handling for proper image captions and accessibility.\n\n- **Frontmatter Generation:**\n  - Added `generateFrontmatter` function to extract and format all relevant post metadata (title, dates, categories, tags, etc.).\n  - Included reading time and word count metrics in the frontmatter for enhanced content analysis.\n\n- **Test Implementation:**\n  - Created an MDX test page (`src/app/mdx-test/page.tsx`) for validating the conversion pipeline.\n  - Added component mapping for all WordPress blocks and implemented metadata display and styling.\n  - Expanded test coverage to ensure edge cases are handled.\n\n- **Content Structure and Relationships:**\n  - Preserved content hierarchies, code syntax highlighting, responsive images, WordPress blocks, and shortcodes.\n  - Maintained post metadata and frontmatter throughout the conversion process.\n\n**Next Steps:**\n- Add content sanitization for security.\n- Implement caching for transformed data to optimize performance.\n- Add error boundaries for resilient rendering.\n- Expand test coverage for additional edge cases.\n\n**Integration:**\n- The pipeline is now ready for integration with the article rendering and indexing workflows, supporting future content management and analysis features.\n\n<info added on 2025-05-13T08:41:24.575Z>\n<update timestamp=\"2025-05-13T08:41:17Z\">\nImplemented a robust data transformation layer for WordPress content, including:\n- **Transformation utilities** (src/lib/wp-graphql/transform.ts):\n  - Defined a TransformedPost interface for clean, structured data output.\n  - Implemented HTML cleaning and text extraction functions to remove WordPress-specific classes and styles.\n  - Added utilities for reading time and word count calculations.\n  - Developed image and heading extraction utilities to preserve content structure.\n  - Integrated date formatting helpers for consistent metadata.\n- **React hooks** (src/lib/wp-graphql/useTransformedPosts.ts):\n  - useTransformedPosts for fetching and transforming multiple posts with pagination support.\n  - useTransformedPost for single post data transformation.\n  - Memoized transformations for improved performance.\n  - Type-safe interfaces for reliable data handling.\n- **Key features implemented:**\n  - Clean HTML content (removes WP-specific classes/styles).\n  - Plain text extraction from HTML for excerpts and analysis.\n  - Reading time calculation.\n  - Clean excerpt generation.\n  - Featured image and metadata extraction.\n  - Consistent date formatting.\n  - Content structure extraction (headings).\n  - Category and tag handling.\n\n**Next steps:**\n- Add content sanitization for security.\n- Implement caching for transformed data to optimize performance.\n- Expand content analysis features (e.g., sentiment, keyword extraction).\n\n**MDX pipeline integration:**\n- Plan to extend the transformation layer to convert cleaned HTML and extracted metadata into MDX format, preserving frontmatter and content relationships.\n- Will handle image asset management and ensure proper linking within the MDX output.\n- Will maintain content hierarchies and metadata during conversion, supporting future article rendering and indexing workflows.\n</update>\n</info added on 2025-05-13T08:41:24.575Z>\n</info added on 2025-05-13T08:55:27.782Z>",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Develop article page rendering",
+          "description": "Create dynamic article pages that render MDX content with proper styling and layout.",
+          "dependencies": [
+            3
+          ],
+          "details": "Build article page templates with Next.js. Implement MDX rendering components. Create layout components for article presentation. Handle metadata for SEO optimization.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement syntax highlighting and responsive images",
+          "description": "Add code syntax highlighting for technical content and ensure images are responsive across devices.",
+          "dependencies": [
+            4
+          ],
+          "details": "Integrate a syntax highlighting library compatible with MDX. Implement responsive image components that optimize loading and display. Create image processing pipeline for different viewport sizes.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Create paginated index pages",
+          "description": "Build index pages with pagination to display article listings with proper navigation.",
+          "dependencies": [
+            4
+          ],
+          "details": "Implement pagination logic for content listings. Create UI components for page navigation. Optimize data fetching for paginated content. Ensure SEO-friendly pagination implementation.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Develop tag-based filtering with URL state",
+          "description": "Implement a filtering system based on content tags that maintains state in the URL for shareable filtered views.",
+          "dependencies": [
+            6
+          ],
+          "details": "Create tag extraction and normalization from WordPress content. Implement URL-based state management for filters. Build UI components for tag selection and display. Ensure filtered views are properly cached and optimized.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Build Gated Checklist Landing Page",
+      "description": "Develop a landing page with an email-gated PDF download form. Integrate EmailOctopus REST API for email capture and tagging.",
+      "details": "Design a landing page with a form (name optional, email required). On submit, call EmailOctopus API to add contact and tag. Return a pre-signed S3 URL for PDF download. Block direct PDF access.",
+      "testStrategy": "Test form validation and submission. Verify email is added to EmailOctopus with the correct tag. Confirm PDF download link is valid and direct access is blocked.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Landing Page Design",
+          "description": "Design and implement the visual layout and user interface for the landing page, ensuring it is user-friendly and aligns with branding guidelines.",
+          "dependencies": [],
+          "details": "Create wireframes, select color schemes, and develop responsive HTML/CSS for the landing page.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Form Implementation",
+          "description": "Develop and integrate a form on the landing page to collect user data required for EmailOctopus and PDF delivery.",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement input fields, client-side validation, and submission logic using JavaScript or a frontend framework.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "EmailOctopus API Integration",
+          "description": "Connect the form submission to the EmailOctopus API to add users to a mailing list or trigger campaigns.",
+          "dependencies": [
+            2
+          ],
+          "details": "Use the EmailOctopus API to send collected form data, handle API authentication, and manage responses.[1][2][3][4][5]",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "PDF Pre-signed URL Generation",
+          "description": "Generate secure, time-limited pre-signed URLs for PDF downloads upon successful form submission.",
+          "dependencies": [
+            3
+          ],
+          "details": "Integrate backend logic to create pre-signed URLs (e.g., using AWS S3 or similar service) and deliver them to users securely.",
+          "status": "pending"
+        },
+        {
+          "id": 5,
+          "title": "Direct Access Blocking",
+          "description": "Implement access control to prevent unauthorized direct access to the PDF files.",
+          "dependencies": [
+            4
+          ],
+          "details": "Configure server or storage permissions to restrict access, ensuring only users with valid pre-signed URLs can download the PDFs.",
+          "status": "pending"
+        },
+        {
+          "id": 6,
+          "title": "Validation and Testing",
+          "description": "Test the entire workflow for usability, security, and correct integration between components.",
+          "dependencies": [
+            5
+          ],
+          "details": "Perform end-to-end testing, including form validation, API calls, URL generation, and access control. Fix any issues found.",
+          "status": "pending"
+        },
+        {
+          "id": 7,
+          "title": "Create Wireframes",
+          "description": "Design low-fidelity wireframes for the landing page layout, focusing on content hierarchy and user flow.",
+          "details": "Create wireframes using a design tool that outline:\n- Hero section with value proposition\n- Form placement and fields\n- Content sections and spacing\n- Call-to-action buttons\n- Mobile and desktop layouts",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 4
+        },
+        {
+          "id": 8,
+          "title": "Design UI Components",
+          "description": "Create high-fidelity designs for all UI components following brand guidelines and modern design principles.",
+          "details": "Design the following components:\n- Typography system and text styles\n- Color palette implementation\n- Button styles and hover states\n- Form input styling\n- Custom icons and visual elements\n- Spacing and layout system",
+          "status": "done",
+          "dependencies": [
+            7
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 9,
+          "title": "Implement Base Layout",
+          "description": "Develop the foundational HTML structure and CSS layout system for the landing page.",
+          "details": "Create the responsive layout foundation:\n- Set up CSS reset/normalize\n- Implement CSS Grid/Flexbox layout system\n- Create responsive breakpoints\n- Set up container components\n- Implement basic spacing system\n- Configure viewport settings",
+          "status": "done",
+          "dependencies": [
+            8
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 10,
+          "title": "Style UI Components",
+          "description": "Implement the visual styles for all UI components based on the approved designs.",
+          "details": "Style implementation tasks:\n- Typography and text styles\n- Button components and states\n- Form input components\n- Custom icons and graphics\n- Animation and transitions\n- Color system implementation\n- Component-specific styles",
+          "status": "done",
+          "dependencies": [
+            9
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 11,
+          "title": "Responsive Testing and Optimization",
+          "description": "Test and optimize the landing page across different devices and screen sizes, ensuring a consistent user experience.",
+          "details": "Testing and optimization tasks:\n- Test on various devices and browsers\n- Optimize images and assets\n- Check responsive behavior\n- Verify component scaling\n- Test loading performance\n- Fix layout issues\n- Implement performance optimizations\n- Document any browser-specific fixes",
+          "status": "done",
+          "dependencies": [
+            10
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 12,
+          "title": "Form State Management",
+          "description": "Implement form state management using React hooks and handle form data.",
+          "details": "Create form state management using React hooks:\n- Set up form state with useState/useForm\n- Handle input field changes\n- Track form submission state\n- Implement form reset functionality\n- Create custom hooks if needed\n- Document state management approach",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 4
+        },
+        {
+          "id": 13,
+          "title": "Form Validation",
+          "description": "Implement client-side validation for form inputs with proper error handling and user feedback.",
+          "details": "Implement form validation:\n- Email format validation\n- Required field validation\n- Real-time validation feedback\n- Error message display\n- Accessibility considerations\n- Validation state management\n- Form submission blocking on invalid state",
+          "status": "done",
+          "dependencies": [
+            12
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 14,
+          "title": "Form Submission Handler",
+          "description": "Create the form submission handler to process form data and prepare it for API submission.",
+          "details": "Implement form submission handling:\n- Create submission handler function\n- Implement loading states\n- Format form data for API\n- Handle submission errors\n- Show success feedback\n- Implement retry logic\n- Add submission analytics\n- Document submission flow",
+          "status": "done",
+          "dependencies": [
+            13
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 15,
+          "title": "Error Handling and User Feedback",
+          "description": "Implement comprehensive error handling and user feedback mechanisms for the form.",
+          "details": "Implement error handling and feedback:\n- Create error message components\n- Implement toast notifications\n- Add loading indicators\n- Handle network errors\n- Provide validation feedback\n- Implement success messages\n- Add accessibility announcements\n- Document error scenarios",
+          "status": "done",
+          "dependencies": [
+            14
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 16,
+          "title": "Setup EmailOctopus API Client",
+          "description": "Create a service or utility to interact with the EmailOctopus API, handling authentication and request configurations.",
+          "details": "Create an EmailOctopus API client:\n- Define base URL and common headers.\n- Implement a method for making authenticated requests.\n- Securely manage the API key (e.g., using environment variables).\n- Add basic error handling for network issues or invalid responses at the client level.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 4
+        },
+        {
+          "id": 17,
+          "title": "Implement Add Contact to List",
+          "description": "Implement the function to add a contact to a specified EmailOctopus list, including any required tags.",
+          "details": "Implement add contact to list functionality:\n- Define the endpoint for adding a contact.\n- Structure the payload with email address, name (optional), and tags.\n- Call the API client to make the request.\n- Ensure the correct list ID is used.",
+          "status": "done",
+          "dependencies": [
+            16
+          ],
+          "parentTaskId": 4
+        },
+        {
+          "id": 18,
+          "title": "Handle API Responses & User Feedback",
+          "description": "Integrate API response handling into the form submission flow, providing clear success or error feedback to the user.",
+          "details": "Handle API responses and provide user feedback:\n- Check API response status codes.\n- Display success messages to the user (e.g., via toast notifications).\n- Display specific error messages based on API responses.\n- Log detailed errors for debugging.\n- Update form state based on API outcome (e.g., clear form on success, maintain data on error).",
+          "status": "done",
+          "dependencies": [
+            17
+          ],
+          "parentTaskId": 4
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Implement Persistent CTA Banner",
+      "description": "Add a persistent banner on every article linking to hipaadevelopment.com with outbound click tracking.",
+      "details": "Create a reusable banner component. Place it on all article pages. Link to hipaadevelopment.com in a new tab. Track outbound clicks with Plausible.",
+      "testStrategy": "Verify banner appears on all articles. Test link opens in a new tab. Confirm click events are tracked in Plausible.",
+      "priority": "medium",
+      "dependencies": [
+        1,
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 6,
+      "title": "Configure SEO and Analytics",
+      "description": "Set up next-seo, sitemap.xml, Plausible analytics, and open-graph tags per article.",
+      "details": "Configure next-seo for meta tags. Generate sitemap.xml dynamically. Integrate Plausible analytics. Add open-graph tags to each article.",
+      "testStrategy": "Check meta tags and open-graph tags on articles. Verify sitemap.xml contains all published slugs. Confirm analytics events are recorded.",
+      "priority": "medium",
+      "dependencies": [
+        1,
+        3
+      ],
+      "status": "pending",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Next.js SEO/Meta Tag Setup",
+          "description": "Configure basic SEO metadata using Next.js Metadata API",
+          "dependencies": [],
+          "details": "Implement static and dynamic metadata using Next.js Metadata API. Set up page titles, descriptions, and basic meta tags for improved SEO. Configure the metadata object in layout.js or page.js files. Include charset and viewport meta tags.",
+          "status": "pending"
+        },
+        {
+          "id": 2,
+          "title": "Sitemap.xml Generation",
+          "description": "Create and configure automatic sitemap generation for the Next.js application",
+          "dependencies": [
+            1
+          ],
+          "details": "Research and implement a sitemap generation solution for Next.js. Configure the sitemap to include all relevant pages and routes. Set up automatic regeneration of the sitemap when content changes. Ensure the sitemap follows proper XML formatting and includes necessary attributes.",
+          "status": "pending"
+        },
+        {
+          "id": 3,
+          "title": "Plausible Analytics Integration",
+          "description": "Set up and configure Plausible analytics for the Next.js application",
+          "dependencies": [
+            1
+          ],
+          "details": "Create a Plausible analytics account if needed. Install the Plausible script in the Next.js application. Configure data collection settings and privacy options. Test the analytics implementation to ensure proper data tracking.",
+          "status": "pending"
+        },
+        {
+          "id": 4,
+          "title": "Open Graph Tag Implementation",
+          "description": "Configure Open Graph tags for improved social media sharing",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement Open Graph meta tags using Next.js Metadata API. Configure og:title, og:description, og:image, and other relevant OG tags. Create and optimize OG images for different social platforms. Test social media previews using validation tools.",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Implement Responsive Navigation and Footer",
+      "description": "Build a sticky header, mobile hamburger menu, and footer with cross-links.",
+      "details": "Create a sticky header with logo and navigation links. Implement a mobile hamburger menu. Add a footer with cross-links to sibling brands and legal pages.",
+      "testStrategy": "Test navigation on mobile and desktop. Verify sticky header and hamburger menu. Check footer links.",
+      "priority": "medium",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Create a sticky header",
+          "description": "Implement a header that remains fixed at the top of the page when scrolling",
+          "dependencies": [],
+          "details": "Use position: sticky and top: 0 in CSS to create the sticky effect. Ensure the header adjusts its height appropriately based on content and works well with internal page links. Consider implementing a height adjustment on scroll for better user experience.",
+          "status": "pending"
+        },
+        {
+          "id": 2,
+          "title": "Implement mobile hamburger menu",
+          "description": "Create a collapsible navigation menu for mobile devices",
+          "dependencies": [
+            1
+          ],
+          "details": "Design a hamburger icon that toggles the navigation menu on mobile devices. Use CSS media queries to show the hamburger menu only on smaller screens. Implement JavaScript to handle the toggle functionality and ensure smooth transitions between states.",
+          "status": "pending"
+        },
+        {
+          "id": 3,
+          "title": "Develop footer with cross-links",
+          "description": "Create a footer section with navigation links to important site sections",
+          "dependencies": [],
+          "details": "Design a footer layout with multiple columns for different categories of links. Include site navigation, social media links, contact information, and any legal information. Ensure proper spacing and hierarchy of information for optimal usability.",
+          "status": "pending"
+        },
+        {
+          "id": 4,
+          "title": "Perform responsive testing",
+          "description": "Test all UI components across different devices and screen sizes",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Test the sticky header, hamburger menu, and footer on various devices and screen sizes. Verify that all components respond appropriately to different viewport dimensions. Check for any layout issues, overflow problems, or functionality breakdowns at breakpoints. Document and fix any responsive design issues.",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Enforce Performance and Accessibility Guardrails",
+      "description": "Set CLS/LCP budgets, run Axe audits in CI, and implement image lazy-loading.",
+      "details": "Configure Lighthouse and Axe audits in CI. Set CLS < 0.1 and LCP < 2.5s budgets. Implement image lazy-loading. Ensure all colors pass WCAG AA contrast.",
+      "testStrategy": "Run Lighthouse and Axe audits in CI. Test on mobile and desktop. Verify image lazy-loading and color contrast.",
+      "priority": "medium",
+      "dependencies": [
+        1,
+        3
+      ],
+      "status": "pending",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Set up Lighthouse CI integration",
+          "description": "Configure Lighthouse CI in your continuous integration pipeline to automate accessibility and performance testing",
+          "dependencies": [],
+          "details": "Install Lighthouse CI using npm, create a basic configuration file, and set up GitHub Actions workflow (or equivalent CI system). Include configuration for both performance and accessibility audits. Reference the GoogleChrome/lighthouse-ci repository for implementation details.",
+          "status": "pending"
+        },
+        {
+          "id": 2,
+          "title": "Implement Axe DevTools integration",
+          "description": "Integrate Axe DevTools alongside Lighthouse for more comprehensive accessibility testing",
+          "dependencies": [
+            1
+          ],
+          "details": "Install Axe DevTools, configure it to run in the same CI pipeline as Lighthouse. Focus on setting up automated accessibility testing that complements Lighthouse's checks with Axe's more specialized accessibility validations.",
+          "status": "pending"
+        },
+        {
+          "id": 3,
+          "title": "Configure CLS/LCP performance budgets",
+          "description": "Set up Core Web Vitals budgets for Cumulative Layout Shift and Largest Contentful Paint",
+          "dependencies": [
+            1
+          ],
+          "details": "Define threshold values for CLS and LCP in your Lighthouse configuration. Create a performance budget that aligns with Google's recommended values (CLS < 0.1, LCP < 2.5s). Implement monitoring to track these metrics over time.",
+          "status": "pending"
+        },
+        {
+          "id": 4,
+          "title": "Implement image lazy-loading and color contrast checks",
+          "description": "Add image optimization techniques and ensure proper color contrast for accessibility",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Implement lazy-loading for images using native loading='lazy' or a JavaScript solution. Configure Lighthouse and Axe to specifically check for image optimization and WCAG color contrast compliance (minimum 4.5:1 for normal text).",
+          "status": "pending"
+        },
+        {
+          "id": 5,
+          "title": "Set up comprehensive audit reporting",
+          "description": "Create a reporting system to track and visualize test results over time",
+          "dependencies": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "details": "Configure Lighthouse CI to save results to a persistent storage. Implement a dashboard to visualize performance and accessibility trends. Set up automated notifications for when metrics fall below thresholds. Include detailed reports that highlight specific issues that need addressing.",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Setup Subscription Logging Database",
+      "description": "Create a PostgreSQL table to log subscription events for analytics.",
+      "details": "Deploy PostgreSQL via Supabase free tier. Create a subscriptions table with fields: id (uuid), email hash (SHA-256), status, timestamp. Do not store plaintext email.",
+      "testStrategy": "Test insertion and retrieval of subscription events. Verify email is hashed and not stored in plaintext.",
+      "priority": "medium",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}

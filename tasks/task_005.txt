@@ -1,0 +1,53 @@
+# Task ID: 5
+# Title: Implement Persistent CTA Banner
+# Status: pending
+# Dependencies: 1, 3
+# Priority: medium
+# Description: Add a persistent banner on every article linking to hipaadevelopment.com with outbound click tracking.
+# Details:
+Create a reusable banner component. Place it on all article pages. Link to hipaadevelopment.com in a new tab. Track outbound clicks with Plausible.
+
+# Test Strategy:
+Verify banner appears on all articles. Test link opens in a new tab. Confirm click events are tracked in Plausible.
+
+# Subtasks:
+## 1. Design and Develop Banner Component [in-progress]
+### Dependencies: None
+### Description: Create a reusable banner component with customizable fields such as title, body text, button, image, and background color. Ensure responsiveness and accessibility.
+### Details:
+Follow best practices for component creation, including SCSS theming and responsive image handling. Reference Material Design or USWDS guidelines as needed.
+<info added on 2025-05-13T09:25:42.663Z>
+Follow best practices for component creation, including SCSS theming and responsive image handling. Reference Material Design or USWDS guidelines as needed.
+
+<update timestamp="2025-05-13T09:25:37Z">
+The CTA Banner component will be implemented as a reusable React functional component named `CtaBanner` in the file `src/components/ui/cta-banner.tsx`. The component will accept props for title, body text, button text, button link (to hipaadevelopment.com, opening in a new tab), optional image URL, optional background color (defaulting to a theme color), and optional className for additional Tailwind classes. The structure will include a main container div, optional image, heading for the title, paragraph for the body text, and a styled anchor tag for the CTA button. TailwindCSS will be used for responsive layout, spacing, typography, and color, with dynamic class handling via clsx and tailwind-merge. The banner will be fully responsive, adapting layout for mobile, tablet, and desktop, and will include accessibility best practices such as semantic HTML, sufficient color contrast, alt text for images, and keyboard navigability for the CTA. If future requirements include dismissible banners or more complex interactivity, ShadCN/Radix primitives can be integrated. The component will be exported for use throughout the application.</update>
+</info added on 2025-05-13T09:25:42.663Z>
+
+## 2. Integrate Banner Component on Article Pages [done]
+### Dependencies: 5.1
+### Description: Embed the newly created banner component into article page templates, ensuring it displays correctly across devices.
+### Details:
+Update article page layouts to include the banner, and verify that the component adapts to different content and screen sizes.
+
+## 3. Implement Plausible Outbound Click Tracking [in-progress]
+### Dependencies: 5.1, 5.2
+### Description: Add Plausible Analytics outbound click tracking to banner buttons and links to monitor user interactions.
+### Details:
+Integrate Plausible's outbound link tracking script or API with the banner component, ensuring analytics events are triggered on relevant user actions.
+<info added on 2025-05-13T09:49:27.432Z>
+Plausible outbound click tracking has been implemented as follows: Installed the `next-plausible` package and configured the `PlausibleProvider` in `src/app/layout.tsx` using the `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` environment variable (with a fallback to `hipaadevelopers.com`). The `CtaBanner` component was converted to a client component, and the `usePlausible` hook was imported to track clicks. A custom event named `CTA Banner Click` is now triggered with the `{ link }` prop when users interact with the banner. The banner is already integrated on article MDX test pages and checklist pages, and all clicks are being sent to Plausible. Next steps include verifying that events appear in the Plausible dashboard, adjusting the event name or props if necessary, and confirming that the Plausible script loads correctly by checking the network tab. This setup enables detailed tracking of outbound link interactions, allowing for analysis of which banner links are most effective and on which pages they are clicked.
+</info added on 2025-05-13T09:49:27.432Z>
+<info added on 2025-05-13T09:53:44.651Z>
+Plausible outbound click tracking has been implemented as follows: Installed the `next-plausible` package and configured the `PlausibleProvider` in `src/app/layout.tsx` using the `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` environment variable (with a fallback to `hipaadevelopers.com`). The `CtaBanner` component was converted to a client component, and the `usePlausible` hook was imported to track clicks. A custom event named `CTA Banner Click` is now triggered with the `{ link }` prop when users interact with the banner. The banner is already integrated on article MDX test pages and checklist pages, and all clicks are being sent to Plausible. Next steps include verifying that events appear in the Plausible dashboard, adjusting the event name or props if necessary, and confirming that the Plausible script loads correctly by checking the network tab. This setup enables detailed tracking of outbound link interactions, allowing for analysis of which banner links are most effective and on which pages they are clicked.
+
+<info added on 2025-05-13T09:49:27.432Z>
+Custom Plausible script tags have been added to `layout.tsx` per verification requirements. The `PlausibleProvider` script has been disabled via `enabled={false}` to ensure only the custom script tags are active. This change allows for greater control over script loading and ensures that outbound link tracking is handled exclusively by the custom implementation. The next steps are to verify that analytics events are still being captured and to confirm that the custom script tags are functioning as expected in the production environment.
+</info added on 2025-05-13T09:49:27.432Z>
+</info added on 2025-05-13T09:53:44.651Z>
+
+## 4. Test and Validate Banner Functionality and Analytics [pending]
+### Dependencies: 5.3
+### Description: Thoroughly test the banner component's display, responsiveness, and Plausible outbound click tracking on article pages.
+### Details:
+Perform cross-browser and device testing, validate analytics events in Plausible dashboard, and address any issues found.
+

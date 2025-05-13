@@ -1,0 +1,37 @@
+# Task ID: 1
+# Title: Setup Project Repository and Initial Stack
+# Status: in-progress
+# Dependencies: None
+# Priority: high
+# Description: Install and configure shadcn/ui in the existing Next.js 15 (App Router) project with TypeScript and Tailwind CSS, ensuring compatibility with React 19. Follow a detailed, auditable workflow for each step, including CLI usage, component addition, integration testing, and documentation.
+# Details:
+Install shadcn/ui in the existing Next.js 15 project using the CLI command 'pnpm dlx shadcn@latest init'. Follow the prompts to configure shadcn/ui with the appropriate style option (Default or New York), and confirm component and config paths. Verify that the components/ui directory and shadcn-ui.json (or similar) are created, and that new dependencies are added to package.json. Add essential UI components (e.g., Button, Input, Card) using the CLI, and verify that the corresponding files exist and use Tailwind classes. Test the integration by creating a test page (app/shadcn-test/page.tsx) that imports and renders a shadcn/ui component, then start the dev server and verify correct rendering, theming, and compatibility with React 19 and Tailwind CSS. Document the installation steps, added components, and example usage in docs/shadcn-usage.md, and optionally update README.md.
+
+# Test Strategy:
+Verify shadcn/ui components render correctly in the application by visiting the test page. Test theming functionality and confirm component imports work as expected. Ensure there are no console errors or conflicts with React 19 and Tailwind CSS. Check that documentation accurately reflects the setup and usage.
+
+# Subtasks:
+## 1.1. Install shadcn/ui using CLI [pending]
+### Dependencies: None
+### Description: Open terminal and navigate to project root: cd /Users/lucasraza/Projects/app-leads/hipaadevelopers. Run 'pnpm dlx shadcn@latest init' and follow prompts: choose style (Default or New York), confirm component and config paths. Verify that components/ui/ directory and shadcn-ui.json (or similar) exist in the root, and that new dependencies are present in package.json.
+### Details:
+
+
+## 1.2. Add essential UI components [pending]
+### Dependencies: None
+### Description: In terminal, add Button: 'pnpm dlx shadcn@latest add button'. Optionally add more: 'pnpm dlx shadcn@latest add input', 'pnpm dlx shadcn@latest add card'. Verify that files like components/ui/button.tsx exist and use Tailwind classes.
+### Details:
+
+
+## 1.3. Test component integration [pending]
+### Dependencies: None
+### Description: Create a test page at app/shadcn-test/page.tsx that imports and renders a shadcn/ui Button. Start the dev server with 'pnpm dev', visit /shadcn-test in the browser, and verify the Button renders with correct styles, no console errors, theming works, and compatibility with React 19 and Tailwind CSS.
+### Details:
+
+
+## 1.4. Document shadcn/ui usage [pending]
+### Dependencies: None
+### Description: Create docs/shadcn-usage.md. Add installation steps, list of added components, and example usage code. Optionally update README.md with a summary.
+### Details:
+
+

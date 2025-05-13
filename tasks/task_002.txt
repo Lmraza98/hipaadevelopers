@@ -1,0 +1,46 @@
+# Task ID: 2
+# Title: Integrate Headless WordPress CMS
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Set up WordPress as a headless CMS with wp-graphql plugin and configure managed container hosting with nightly backups.
+# Details:
+Deploy WordPress in a managed container. Install and configure the wp-graphql plugin. Ensure nightly backups are enabled. Document the CMS setup and API endpoints.
+
+# Test Strategy:
+Verify GraphQL queries return expected content. Confirm backups are scheduled and functional.
+
+# Subtasks:
+## 1. WordPress Container Deployment [in-progress]
+### Dependencies: None
+### Description: Set up a secure Docker environment for WordPress with proper networking and persistent storage
+### Details:
+Use Docker Compose to create a containerized WordPress setup with MariaDB. Configure Traefik for SSL/TLS termination and secure environment variables. Implement security best practices including container isolation and network security. Verify deployment with proper health checks.
+<info added on 2025-05-13T08:34:12.915Z>
+<update><timestamp>2025-05-13T08:34:09Z</timestamp><content>Docker Compose configuration has been created for a secure WordPress 6.4 environment with PHP 8.2 and MariaDB 10.11. The setup includes Traefik as a reverse proxy for SSL/TLS termination, ensuring encrypted communication. Security best practices are implemented: sensitive credentials are managed via environment variables and .env files, with Docker secrets recommended for production; WordPress security constants (DISALLOW_FILE_EDIT, AUTOMATIC_UPDATER_DISABLED) are set; container isolation and network security are enforced; and health checks are configured for all services. Persistent storage is ensured via volume mounts, and a backup script with retention policy is included. Next steps: copy docker/env.example to .env and fill in secure values, create necessary directories, and run docker compose up.</content></update>
+</info added on 2025-05-13T08:34:12.915Z>
+
+## 2. WP-GraphQL Plugin Installation [pending]
+### Dependencies: 2.1
+### Description: Install and configure the WP-GraphQL plugin in the WordPress container
+### Details:
+Add WP-GraphQL as a dependency using Composer with WordPress Packagist. Configure plugin settings through the WordPress admin interface. Verify plugin activation and basic functionality. Implement proper version control for the plugin configuration.
+
+## 3. GraphQL Endpoint Configuration [pending]
+### Dependencies: 2.2
+### Description: Configure and secure the GraphQL API endpoint for external access
+### Details:
+Set up proper authentication for the GraphQL endpoint. Configure CORS settings for API access. Implement rate limiting and security measures. Test endpoint functionality with sample queries. Ensure proper error handling and logging.
+
+## 4. Nightly Backup Setup [pending]
+### Dependencies: 2.1
+### Description: Implement automated nightly backups for WordPress data and database
+### Details:
+Create backup scripts for WordPress files and database. Configure Docker volume backups for persistent storage. Set up cron jobs for nightly execution. Implement backup rotation and retention policies. Test backup and restore procedures.
+
+## 5. Documentation of API Endpoints [pending]
+### Dependencies: 2.3
+### Description: Create comprehensive documentation for all GraphQL API endpoints
+### Details:
+Document all available GraphQL queries and mutations. Create example requests and responses. Document authentication requirements and error codes. Create a schema visualization. Organize documentation in a developer-friendly format.
+

@@ -1,0 +1,11 @@
+# Task ID: 9
+# Title: Setup Subscription Logging Database
+# Status: pending
+# Dependencies: 1
+# Priority: medium
+# Description: Create a PostgreSQL table to log subscription events for analytics.
+# Details:
+Deploy PostgreSQL via Supabase free tier. Create a subscriptions table with fields: id (uuid), email hash (SHA-256), status, timestamp. Do not store plaintext email.
+
+# Test Strategy:
+Test insertion and retrieval of subscription events. Verify email is hashed and not stored in plaintext.

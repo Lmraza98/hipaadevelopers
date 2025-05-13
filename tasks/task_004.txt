@@ -1,0 +1,195 @@
+# Task ID: 4
+# Title: Build Gated Checklist Landing Page
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Develop a landing page with an email-gated PDF download form. Integrate EmailOctopus REST API for email capture and tagging.
+# Details:
+Design a landing page with a form (name optional, email required). On submit, call EmailOctopus API to add contact and tag. Return a pre-signed S3 URL for PDF download. Block direct PDF access.
+
+# Test Strategy:
+Test form validation and submission. Verify email is added to EmailOctopus with the correct tag. Confirm PDF download link is valid and direct access is blocked.
+
+# Subtasks:
+## 1. Landing Page Design [done]
+### Dependencies: None
+### Description: Design and implement the visual layout and user interface for the landing page, ensuring it is user-friendly and aligns with branding guidelines.
+### Details:
+Create wireframes, select color schemes, and develop responsive HTML/CSS for the landing page.
+
+## 2. Form Implementation [done]
+### Dependencies: 4.1
+### Description: Develop and integrate a form on the landing page to collect user data required for EmailOctopus and PDF delivery.
+### Details:
+Implement input fields, client-side validation, and submission logic using JavaScript or a frontend framework.
+
+## 3. EmailOctopus API Integration [done]
+### Dependencies: 4.2
+### Description: Connect the form submission to the EmailOctopus API to add users to a mailing list or trigger campaigns.
+### Details:
+Use the EmailOctopus API to send collected form data, handle API authentication, and manage responses.[1][2][3][4][5]
+
+## 4. PDF Pre-signed URL Generation [pending]
+### Dependencies: 4.3
+### Description: Generate secure, time-limited pre-signed URLs for PDF downloads upon successful form submission.
+### Details:
+Integrate backend logic to create pre-signed URLs (e.g., using AWS S3 or similar service) and deliver them to users securely.
+
+## 5. Direct Access Blocking [pending]
+### Dependencies: 4.4
+### Description: Implement access control to prevent unauthorized direct access to the PDF files.
+### Details:
+Configure server or storage permissions to restrict access, ensuring only users with valid pre-signed URLs can download the PDFs.
+
+## 6. Validation and Testing [pending]
+### Dependencies: 4.5
+### Description: Test the entire workflow for usability, security, and correct integration between components.
+### Details:
+Perform end-to-end testing, including form validation, API calls, URL generation, and access control. Fix any issues found.
+
+## 7. Create Wireframes [done]
+### Dependencies: None
+### Description: Design low-fidelity wireframes for the landing page layout, focusing on content hierarchy and user flow.
+### Details:
+Create wireframes using a design tool that outline:
+- Hero section with value proposition
+- Form placement and fields
+- Content sections and spacing
+- Call-to-action buttons
+- Mobile and desktop layouts
+
+## 8. Design UI Components [done]
+### Dependencies: 4.7
+### Description: Create high-fidelity designs for all UI components following brand guidelines and modern design principles.
+### Details:
+Design the following components:
+- Typography system and text styles
+- Color palette implementation
+- Button styles and hover states
+- Form input styling
+- Custom icons and visual elements
+- Spacing and layout system
+
+## 9. Implement Base Layout [done]
+### Dependencies: 4.8
+### Description: Develop the foundational HTML structure and CSS layout system for the landing page.
+### Details:
+Create the responsive layout foundation:
+- Set up CSS reset/normalize
+- Implement CSS Grid/Flexbox layout system
+- Create responsive breakpoints
+- Set up container components
+- Implement basic spacing system
+- Configure viewport settings
+
+## 10. Style UI Components [done]
+### Dependencies: 4.9
+### Description: Implement the visual styles for all UI components based on the approved designs.
+### Details:
+Style implementation tasks:
+- Typography and text styles
+- Button components and states
+- Form input components
+- Custom icons and graphics
+- Animation and transitions
+- Color system implementation
+- Component-specific styles
+
+## 11. Responsive Testing and Optimization [done]
+### Dependencies: 4.10
+### Description: Test and optimize the landing page across different devices and screen sizes, ensuring a consistent user experience.
+### Details:
+Testing and optimization tasks:
+- Test on various devices and browsers
+- Optimize images and assets
+- Check responsive behavior
+- Verify component scaling
+- Test loading performance
+- Fix layout issues
+- Implement performance optimizations
+- Document any browser-specific fixes
+
+## 12. Form State Management [done]
+### Dependencies: None
+### Description: Implement form state management using React hooks and handle form data.
+### Details:
+Create form state management using React hooks:
+- Set up form state with useState/useForm
+- Handle input field changes
+- Track form submission state
+- Implement form reset functionality
+- Create custom hooks if needed
+- Document state management approach
+
+## 13. Form Validation [done]
+### Dependencies: 4.12
+### Description: Implement client-side validation for form inputs with proper error handling and user feedback.
+### Details:
+Implement form validation:
+- Email format validation
+- Required field validation
+- Real-time validation feedback
+- Error message display
+- Accessibility considerations
+- Validation state management
+- Form submission blocking on invalid state
+
+## 14. Form Submission Handler [done]
+### Dependencies: 4.13
+### Description: Create the form submission handler to process form data and prepare it for API submission.
+### Details:
+Implement form submission handling:
+- Create submission handler function
+- Implement loading states
+- Format form data for API
+- Handle submission errors
+- Show success feedback
+- Implement retry logic
+- Add submission analytics
+- Document submission flow
+
+## 15. Error Handling and User Feedback [done]
+### Dependencies: 4.14
+### Description: Implement comprehensive error handling and user feedback mechanisms for the form.
+### Details:
+Implement error handling and feedback:
+- Create error message components
+- Implement toast notifications
+- Add loading indicators
+- Handle network errors
+- Provide validation feedback
+- Implement success messages
+- Add accessibility announcements
+- Document error scenarios
+
+## 16. Setup EmailOctopus API Client [done]
+### Dependencies: None
+### Description: Create a service or utility to interact with the EmailOctopus API, handling authentication and request configurations.
+### Details:
+Create an EmailOctopus API client:
+- Define base URL and common headers.
+- Implement a method for making authenticated requests.
+- Securely manage the API key (e.g., using environment variables).
+- Add basic error handling for network issues or invalid responses at the client level.
+
+## 17. Implement Add Contact to List [done]
+### Dependencies: 4.16
+### Description: Implement the function to add a contact to a specified EmailOctopus list, including any required tags.
+### Details:
+Implement add contact to list functionality:
+- Define the endpoint for adding a contact.
+- Structure the payload with email address, name (optional), and tags.
+- Call the API client to make the request.
+- Ensure the correct list ID is used.
+
+## 18. Handle API Responses & User Feedback [done]
+### Dependencies: 4.17
+### Description: Integrate API response handling into the form submission flow, providing clear success or error feedback to the user.
+### Details:
+Handle API responses and provide user feedback:
+- Check API response status codes.
+- Display success messages to the user (e.g., via toast notifications).
+- Display specific error messages based on API responses.
+- Log detailed errors for debugging.
+- Update form state based on API outcome (e.g., clear form on success, maintain data on error).
+

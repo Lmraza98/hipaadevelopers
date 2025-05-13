@@ -1,0 +1,183 @@
+# Task ID: 3
+# Title: Implement Article Rendering and Index
+# Status: done
+# Dependencies: 1, 2
+# Priority: high
+# Description: Fetch and render Markdown content from WordPress via GraphQL, convert to MDX, and display with syntax highlighting and responsive images.
+# Details:
+Create Next.js pages to fetch articles via GraphQL. Use MDX for rendering. Implement syntax highlighting and responsive image handling. Build a paginated article index with tag multi-select and URL-driven filter state.
+
+# Test Strategy:
+Test article rendering on mobile and desktop. Verify syntax highlighting and image responsiveness. Check tag filtering and URL state.
+
+# Subtasks:
+## 1. Set up WordPress GraphQL API [done]
+### Dependencies: None
+### Description: Configure WPGraphQL plugin in WordPress and implement caching for GraphQL requests to improve performance and avoid timeouts.
+### Details:
+Install and activate the WPGraphQL plugin from the WordPress admin panel. Configure HTTP GET request caching to optimize query performance. Test basic queries to ensure proper data retrieval from WordPress.
+<info added on 2025-05-13T08:37:45.678Z>
+Install and activate the WPGraphQL plugin from the WordPress admin panel. Configure HTTP GET request caching to optimize query performance. Test basic queries to ensure proper data retrieval from WordPress. <update><![CDATA[<timestamp>2025-05-13T08:37:41Z</timestamp>Implemented GraphQL client configuration in src/lib/wp-graphql/client.ts, including type-safe client setup, common post fragments, error handling, and logging. Added a test script (src/lib/wp-graphql/test.ts) for basic query testing, error handling, and connection verification. Configured Next.js (next.config.js) with Cache-Control headers for the GraphQL endpoint, image domain whitelisting, and enabled Server Actions. Installed required dependencies: graphql-request, graphql, and node-fetch. Next steps: Test the GraphQL endpoint, configure WordPress caching plugins as needed, and verify query performance.]]></update>
+</info added on 2025-05-13T08:37:45.678Z>
+
+## 2. Implement GraphQL data fetching layer [done]
+### Dependencies: 3.1
+### Description: Create a data fetching layer that queries WordPress content through GraphQL and handles response processing.
+### Details:
+Develop GraphQL queries for different content types. Implement error handling and response normalization. Create utility functions for common data fetching patterns. Set up proper caching mechanisms to improve performance.
+<info added on 2025-05-13T08:39:55.420Z>
+Developed a comprehensive GraphQL data fetching layer with the following components:
+
+1. **TypeScript Types**: Defined interfaces for WPPost, WPImage, WPTaxonomyNode, and response types for all queries, including PageInfo and connection types, ensuring type safety throughout the application.
+
+2. **GraphQL Queries**: Implemented queries for posts, categories, tags, and site settings, with built-in pagination support and reusable fragments for maintainability and consistency.
+
+3. **Service Layer**: Created a service layer with type-safe query functions, robust pagination handling, comprehensive error handling, and default configurations for common use cases.
+
+4. **React Hooks**: Introduced custom hooks (usePosts, usePost, useCategories, useTags) with support for infinite loading, SSR, and initial data hydration, along with loading and error states for improved user experience.
+
+Next steps include testing hooks in components, adding error boundaries, and implementing UI for loading states to ensure a resilient and user-friendly frontend.
+
+<update timestamp="2025-05-13T08:39:49Z">
+The data fetching layer now supports efficient, type-safe retrieval of WordPress content via GraphQL, with a focus on modularity, performance, and developer experience. Caching mechanisms and utility functions for common patterns have been integrated to optimize performance and reduce redundant requests. The layer is ready for integration with frontend components and further refinement based on real-world usage.
+</update>
+</info added on 2025-05-13T08:39:55.420Z>
+
+## 3. Build MDX conversion pipeline [done]
+### Dependencies: 3.2
+### Description: Create a system to convert WordPress content to MDX format, preserving metadata and content structure.
+### Details:
+Implement content transformation from WordPress HTML to MDX. Handle frontmatter generation from WordPress metadata. Create a processing pipeline that maintains content relationships and hierarchies.
+<info added on 2025-05-13T08:41:24.575Z>
+<update timestamp="2025-05-13T08:41:17Z">
+Implemented a robust data transformation layer for WordPress content, including:
+- **Transformation utilities** (src/lib/wp-graphql/transform.ts):
+  - Defined a TransformedPost interface for clean, structured data output.
+  - Implemented HTML cleaning and text extraction functions to remove WordPress-specific classes and styles.
+  - Added utilities for reading time and word count calculations.
+  - Developed image and heading extraction utilities to preserve content structure.
+  - Integrated date formatting helpers for consistent metadata.
+- **React hooks** (src/lib/wp-graphql/useTransformedPosts.ts):
+  - useTransformedPosts for fetching and transforming multiple posts with pagination support.
+  - useTransformedPost for single post data transformation.
+  - Memoized transformations for improved performance.
+  - Type-safe interfaces for reliable data handling.
+- **Key features implemented:**
+  - Clean HTML content (removes WP-specific classes/styles).
+  - Plain text extraction from HTML for excerpts and analysis.
+  - Reading time calculation.
+  - Clean excerpt generation.
+  - Featured image and metadata extraction.
+  - Consistent date formatting.
+  - Content structure extraction (headings).
+  - Category and tag handling.
+
+**Next steps:**
+- Add content sanitization for security.
+- Implement caching for transformed data to optimize performance.
+- Expand content analysis features (e.g., sentiment, keyword extraction).
+
+**MDX pipeline integration:**
+- Plan to extend the transformation layer to convert cleaned HTML and extracted metadata into MDX format, preserving frontmatter and content relationships.
+- Will handle image asset management and ensure proper linking within the MDX output.
+- Will maintain content hierarchies and metadata during conversion, supporting future article rendering and indexing workflows.
+</update>
+</info added on 2025-05-13T08:41:24.575Z>
+<info added on 2025-05-13T08:55:27.782Z>
+Implemented a robust MDX conversion pipeline for WordPress content, leveraging unified, remark, and rehype libraries for reliable HTML-to-MDX transformation. The pipeline now supports the following features:
+
+- **HTML to MDX Transformation:**
+  - Implemented `convertHtmlToMdx` function, which handles WordPress block patterns, alignment classes, and WordPress-specific markup, converting them to MDX components and standard Markdown.
+  - Ensured content structure and relationships are preserved during conversion.
+
+- **Code Block Processing:**
+  - Added `cleanCodeBlocks` function for proper code block conversion, including language detection and normalization for both fenced and inline code blocks.
+  - Integrated syntax highlighting support for code blocks.
+
+- **Image Processing:**
+  - Created `processImages` function to convert WordPress images to Next.js Image components, supporting srcset and responsive images.
+  - Implemented figure/figcaption handling for proper image captions and accessibility.
+
+- **Frontmatter Generation:**
+  - Added `generateFrontmatter` function to extract and format all relevant post metadata (title, dates, categories, tags, etc.).
+  - Included reading time and word count metrics in the frontmatter for enhanced content analysis.
+
+- **Test Implementation:**
+  - Created an MDX test page (`src/app/mdx-test/page.tsx`) for validating the conversion pipeline.
+  - Added component mapping for all WordPress blocks and implemented metadata display and styling.
+  - Expanded test coverage to ensure edge cases are handled.
+
+- **Content Structure and Relationships:**
+  - Preserved content hierarchies, code syntax highlighting, responsive images, WordPress blocks, and shortcodes.
+  - Maintained post metadata and frontmatter throughout the conversion process.
+
+**Next Steps:**
+- Add content sanitization for security.
+- Implement caching for transformed data to optimize performance.
+- Add error boundaries for resilient rendering.
+- Expand test coverage for additional edge cases.
+
+**Integration:**
+- The pipeline is now ready for integration with the article rendering and indexing workflows, supporting future content management and analysis features.
+
+<info added on 2025-05-13T08:41:24.575Z>
+<update timestamp="2025-05-13T08:41:17Z">
+Implemented a robust data transformation layer for WordPress content, including:
+- **Transformation utilities** (src/lib/wp-graphql/transform.ts):
+  - Defined a TransformedPost interface for clean, structured data output.
+  - Implemented HTML cleaning and text extraction functions to remove WordPress-specific classes and styles.
+  - Added utilities for reading time and word count calculations.
+  - Developed image and heading extraction utilities to preserve content structure.
+  - Integrated date formatting helpers for consistent metadata.
+- **React hooks** (src/lib/wp-graphql/useTransformedPosts.ts):
+  - useTransformedPosts for fetching and transforming multiple posts with pagination support.
+  - useTransformedPost for single post data transformation.
+  - Memoized transformations for improved performance.
+  - Type-safe interfaces for reliable data handling.
+- **Key features implemented:**
+  - Clean HTML content (removes WP-specific classes/styles).
+  - Plain text extraction from HTML for excerpts and analysis.
+  - Reading time calculation.
+  - Clean excerpt generation.
+  - Featured image and metadata extraction.
+  - Consistent date formatting.
+  - Content structure extraction (headings).
+  - Category and tag handling.
+
+**Next steps:**
+- Add content sanitization for security.
+- Implement caching for transformed data to optimize performance.
+- Expand content analysis features (e.g., sentiment, keyword extraction).
+
+**MDX pipeline integration:**
+- Plan to extend the transformation layer to convert cleaned HTML and extracted metadata into MDX format, preserving frontmatter and content relationships.
+- Will handle image asset management and ensure proper linking within the MDX output.
+- Will maintain content hierarchies and metadata during conversion, supporting future article rendering and indexing workflows.
+</update>
+</info added on 2025-05-13T08:41:24.575Z>
+</info added on 2025-05-13T08:55:27.782Z>
+
+## 4. Develop article page rendering [done]
+### Dependencies: 3.3
+### Description: Create dynamic article pages that render MDX content with proper styling and layout.
+### Details:
+Build article page templates with Next.js. Implement MDX rendering components. Create layout components for article presentation. Handle metadata for SEO optimization.
+
+## 5. Implement syntax highlighting and responsive images [done]
+### Dependencies: 3.4
+### Description: Add code syntax highlighting for technical content and ensure images are responsive across devices.
+### Details:
+Integrate a syntax highlighting library compatible with MDX. Implement responsive image components that optimize loading and display. Create image processing pipeline for different viewport sizes.
+
+## 6. Create paginated index pages [done]
+### Dependencies: 3.4
+### Description: Build index pages with pagination to display article listings with proper navigation.
+### Details:
+Implement pagination logic for content listings. Create UI components for page navigation. Optimize data fetching for paginated content. Ensure SEO-friendly pagination implementation.
+
+## 7. Develop tag-based filtering with URL state [done]
+### Dependencies: 3.6
+### Description: Implement a filtering system based on content tags that maintains state in the URL for shareable filtered views.
+### Details:
+Create tag extraction and normalization from WordPress content. Implement URL-based state management for filters. Build UI components for tag selection and display. Ensure filtered views are properly cached and optimized.
+

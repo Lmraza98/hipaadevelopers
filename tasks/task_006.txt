@@ -1,0 +1,37 @@
+# Task ID: 6
+# Title: Configure SEO and Analytics
+# Status: pending
+# Dependencies: 1, 3
+# Priority: medium
+# Description: Set up next-seo, sitemap.xml, Plausible analytics, and open-graph tags per article.
+# Details:
+Configure next-seo for meta tags. Generate sitemap.xml dynamically. Integrate Plausible analytics. Add open-graph tags to each article.
+
+# Test Strategy:
+Check meta tags and open-graph tags on articles. Verify sitemap.xml contains all published slugs. Confirm analytics events are recorded.
+
+# Subtasks:
+## 1. Next.js SEO/Meta Tag Setup [pending]
+### Dependencies: None
+### Description: Configure basic SEO metadata using Next.js Metadata API
+### Details:
+Implement static and dynamic metadata using Next.js Metadata API. Set up page titles, descriptions, and basic meta tags for improved SEO. Configure the metadata object in layout.js or page.js files. Include charset and viewport meta tags.
+
+## 2. Sitemap.xml Generation [pending]
+### Dependencies: 6.1
+### Description: Create and configure automatic sitemap generation for the Next.js application
+### Details:
+Research and implement a sitemap generation solution for Next.js. Configure the sitemap to include all relevant pages and routes. Set up automatic regeneration of the sitemap when content changes. Ensure the sitemap follows proper XML formatting and includes necessary attributes.
+
+## 3. Plausible Analytics Integration [pending]
+### Dependencies: 6.1
+### Description: Set up and configure Plausible analytics for the Next.js application
+### Details:
+Create a Plausible analytics account if needed. Install the Plausible script in the Next.js application. Configure data collection settings and privacy options. Test the analytics implementation to ensure proper data tracking.
+
+## 4. Open Graph Tag Implementation [pending]
+### Dependencies: 6.1
+### Description: Configure Open Graph tags for improved social media sharing
+### Details:
+Implement Open Graph meta tags using Next.js Metadata API. Configure og:title, og:description, og:image, and other relevant OG tags. Create and optimize OG images for different social platforms. Test social media previews using validation tools.
+
