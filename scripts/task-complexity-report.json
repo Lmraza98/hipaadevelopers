@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "generatedAt": "2025-05-13T08:17:16.145Z",
+    "tasksAnalyzed": 10,
+    "thresholdScore": 5,
+    "projectName": "Taskmaster",
+    "usedResearch": true
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Setup Project Repository and Initial Stack",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the setup into subtasks: Next.js 15 project initialization, TypeScript configuration, Tailwind CSS 3 installation, shadcn/ui integration, GitHub repository and Actions setup, Vercel deployment connection, and README documentation.",
+      "reasoning": "This task involves multiple technologies (Next.js 15 App Router, TypeScript, Tailwind CSS, shadcn/ui), CI/CD setup, and deployment configuration. Each step requires specific setup and verification, making the process moderately complex and best managed by splitting into focused subtasks.[1][2][3]"
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Integrate Headless WordPress CMS",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into subtasks: WordPress container deployment, wp-graphql plugin installation, GraphQL endpoint configuration, nightly backup setup, and documentation of API endpoints.",
+      "reasoning": "Setting up a headless WordPress with GraphQL and managed hosting involves several distinct steps, including plugin configuration and backup management. Each component is straightforward but requires careful orchestration."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Implement Article Rendering and Index",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide into subtasks: GraphQL data fetching, MDX conversion, article page rendering, syntax highlighting, responsive image handling, paginated index creation, and tag-based filtering with URL state.",
+      "reasoning": "This task requires integrating multiple systems (WordPress GraphQL, MDX, Next.js), implementing advanced UI features (pagination, filtering), and ensuring responsive rendering, making it one of the most complex tasks."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Build Gated Checklist Landing Page",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down into: landing page design, form implementation, EmailOctopus API integration, PDF pre-signed URL generation, direct access blocking, and validation/testing.",
+      "reasoning": "Combines frontend form logic, third-party API integration, secure file delivery, and access control, each requiring careful implementation and testing."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Implement Persistent CTA Banner",
+      "complexityScore": 4,
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Expand into: banner component creation, integration on article pages, and Plausible outbound click tracking.",
+      "reasoning": "This is a focused UI enhancement with simple analytics integration, requiring fewer steps and less complexity."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Configure SEO and Analytics",
+      "complexityScore": 5,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Divide into: next-seo/meta tag setup, sitemap.xml generation, Plausible analytics integration, and open-graph tag implementation.",
+      "reasoning": "SEO and analytics setup involves configuration and validation across several tools, but each is a well-defined process."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Implement Responsive Navigation and Footer",
+      "complexityScore": 5,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break into: sticky header creation, mobile hamburger menu implementation, footer with cross-links, and responsive testing.",
+      "reasoning": "UI work with responsiveness and navigation logic, but follows standard patterns and is not deeply complex."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Enforce Performance and Accessibility Guardrails",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: Lighthouse/Axe CI integration, CLS/LCP budget configuration, image lazy-loading, color contrast checks, and audit reporting.",
+      "reasoning": "Requires CI integration, performance tuning, and accessibility validation, each with its own setup and verification steps."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Setup Subscription Logging Database",
+      "complexityScore": 4,
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Divide into: Supabase PostgreSQL deployment, subscriptions table schema creation, and insertion/retrieval test implementation.",
+      "reasoning": "Database setup and schema design are straightforward, with a small number of focused steps."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Implement Admin Authentication and Security",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Expand into: 2FA configuration for WordPress admin, TLS 1.3 enforcement, security header setup, and OWASP ZAP scan scheduling.",
+      "reasoning": "Security hardening involves several distinct configurations and ongoing validation, each requiring attention to detail."
+    }
+  ]
+}

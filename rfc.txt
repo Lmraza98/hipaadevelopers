@@ -1,0 +1,170 @@
+RFC — HIPAADevelopers.com (Developer Resource Hub)
+1. Purpose & North‑Star
+Build the go‑to technical resource for HIPAA‑compliant app development.
+Deliver opinionated, code‑level guidance that earns organic traffic, captures developer emails, and funnels qualified teams toward paid services on hipaadevelopment.com.
+
+2. Success Criteria
+KPI	Target	Notes
+90‑day organic sessions	2 000+ / mo	From 5–10 cornerstone articles
+Newsletter sign‑ups	5 %+ of visitors	Via gated “HIPAA Dev Checklist”
+Outbound clicks to service site	≥25/mo	Deep‑link CTA in every article
+Core Web Vitals	Good on mobile & desktop	LCP < 2.5 s, CLS < 0.1
+
+3. Audience
+Primary: Mobile / web engineers & tech leads at healthcare startups or agencies.
+
+Secondary: CTOs researching compliance options.
+
+4. Tech/Infra Stack
+Layer	Choice
+Frontend	Next.js 15 (App Router), TypeScript
+Styling / UI	Tailwind CSS + shadcn/ui (free components)
+Content CMS	Headless WordPress (editor‑only) ↔ wp‑graphql
+Rendering	Static + ISR where possible, fully responsive & mobile‑first
+Analytics/SEO	Plausible or GA4, next‑seo for meta
+Email	ConvertKit (or Buttondown) via simple API call
+Hosting	Vercel (front) + WP on managed host / container
+
+5. Information Architecture
+bash
+Copy code
+/
+├─ articles/              ← MDX pulled via wp‑graphql
+│   └─ [slug]
+├─ resources/hipaa-dev-checklist   ← email‑gated PDF
+├─ about/
+└─ api/                    ← newsletter subscribe, revalidate paths
+Global nav: Home · Articles · About (sticky top), footer links to sibling brands.
+
+6. Content Roadmap (Cornerstones v1)
+How to Encrypt Patient Data in Android (AES‑256 + Keystore)
+
+HIPAA‑Ready iOS Libraries (Keychain, CryptoKit, open‑source audits)
+
+Designing a Secure FHIR‑backed Architecture on AWS
+
+Implementing HIPAA Audit Trails with PostgreSQL + Prisma
+
+Building a Compliant Patient Intake Form (React / Next.js)
+(expand to 10 within 60 days, guided by long‑tail keyword research)
+
+7. Monetization & Lead‑Gen
+Affiliate: security SDKs, compliance monitoring, dev courses.
+
+Lead capture: Gated checklist ➜ nurture sequence (weekly “HIPAA Dev Tip”).
+
+Service upsell: Persistent CTA → hipaadevelopment.com (“Need hands‑on help?”).
+
+Internal links: Each article ⇢ (1) relevant service page, (2) deep‑dive on hipaainsights.com, (3) discussion thread on hipaacrit.com.
+
+8. Task Backlog (for Cursor)
+Copy each 🔧 TASK block into Cursor.
+Every task contains Context, Definition of Done (DoD), and any Follow‑ups.
+
+🔧 TASK 01 — Project Scaffold
+vbnet
+Copy code
+Context:
+- Init Next.js 15 App Router project with TypeScript.
+- Configure TailwindCSS, shadcn/ui (tsx‑only, no Storybook).
+- Set up absolute imports (@/).
+
+DoD:
+- `npm run dev` renders blank homepage without errors.
+- Tailwind classes compile; a sample shadcn Button is visible.
+🔧 TASK 02 — wp‑graphql Client & Type‑Safe Queries
+markdown
+Copy code
+Context:
+- Install `@apollo/client` + `graphql` codegen.
+- Generate typed hooks (`getAllPosts`, `getPostBySlug`).
+- Add env var `WP_GRAPHQL_ENDPOINT`.
+
+DoD:
+- Running `npm run codegen` succeeds.
+- A simple `/api/debug` route returns first 3 post titles as JSON.
+🔧 TASK 03 — MDX Renderer & Article Page
+markdown
+Copy code
+Context:
+- Build `/articles/[slug]/page.tsx`.
+- Parse WordPress MD → MDX via `@mdx-js/react`.
+- Include shadcn/styleable code block component.
+
+DoD:
+- Visiting `/articles/test-post` renders title, meta, code highlighting.
+- Open‑graph tags populated via `generateMetadata`.
+🔧 TASK 04 — Blog Index with Pagination & Tags
+markdown
+Copy code
+Context:
+- Page at `/articles` lists posts (title, excerpt, tags, publish date).
+- Cursor pagination (Load More button).
+- Tag filter (multi‑select) persisted in URL search params.
+
+DoD:
+- Lighthouse score ≥90 mobile.
+- Navigating back preserves scroll & filters.
+🔧 TASK 05 — Responsive Layout & Navigation
+vbnet
+Copy code
+Context:
+- Sticky header (Home · Articles · About) + mobile hamburger.
+- Footer with links to hipaadevelopment.com, hipaainsights.com, hipaacrit.com.
+
+DoD:
+- Passes Axe accessibility audit.
+- No layout shift (CLS < 0.1) on mobile.
+🔧 TASK 06 — Email Sign‑up & Gated PDF
+vbnet
+Copy code
+Context:
+- `/resources/hipaa-dev-checklist` landing page with form (name, email).
+- On submit, call ConvertKit API & return secure download link (signed URL).
+- Add hidden honeypot field to deter bots.
+
+DoD:
+- Form submits, email appears in CK list.
+- Direct URL to PDF redirects to landing page if not signed (simple edge check).
+🔧 TASK 07 — SEO & Analytics
+markdown
+Copy code
+Context:
+- Integrate `next-seo` default config.
+- Sitemap & robots.txt (next-sitemap).
+- Add Plausible script to `_app`.
+
+DoD:
+- Page titles, canonical URLs correct.
+- `curl /sitemap.xml` returns 200.
+🔧 TASK 08 — CI/CD & Preview URLs
+vbnet
+Copy code
+Context:
+- GitHub Actions CI: install, lint, test, build.
+- On PR → Vercel Preview comment with URL.
+
+DoD:
+- PR shows ✅ check suite; preview deploy live.
+🔧 TASK 09 — Content Author Workflow
+markdown
+Copy code
+Context:
+- Write README section “Publishing new article”:
+  1. Draft in WordPress.
+  2. Set `slug`, `tags`, `excerpt`.
+  3. Publish → Next.js revalidated via webhook.
+
+DoD:
+- Trigger WP publish; Next.js page shows within 60 s.
+🔧 TASK 10 — Launch Checklist
+diff
+Copy code
+Context:
+- 5 cornerstone posts imported & formatted.
+- Performance pass in Vercel analytics.
+- Lighthouse mobile: All core web vitals “Good”.
+
+DoD:
+- Domain hipaadevelopers.com points to Vercel prod.
+- Smoke test (index, article, gated page) returns 200.

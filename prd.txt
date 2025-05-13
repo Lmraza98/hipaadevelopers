@@ -1,0 +1,105 @@
+HipaaDevelopers.com product requirements document
+1. introduction
+HipaaDevelopers.com is a developer‑centric content hub that delivers practical, code‑level guidance on building HIPAA‑compliant applications. The site will grow organic traffic through targeted technical articles, capture developer leads via a gated checklist, and funnel qualified teams to premium implementation services on hipaadevelopment.com.
+
+2. product overview
+HipaaDevelopers.com will publish tutorials, tool reviews and architectural guides sourced from a headless WordPress CMS and rendered by a modern Next.js 15 front end. Core monetisation comes from (1) affiliate links to compliance tools and (2) a nurture email sequence that promotes paid consulting services. The experience must be lightning‑fast on mobile, accessible and optimised for search.
+
+Key highlights
+
+Area	Detail
+Content breadth	5–10 cornerstone articles at launch, expanding to 10+ within 60 days
+Lead magnet	Email‑gated PDF “HIPAA Dev Checklist”
+SEO	Long‑tail keyword focus, technical schema, fast CLS/LCP
+Call‑to‑action	Persistent “Need hands‑on help?” banner linking to hipaadevelopment.com
+
+3. goals and objectives
+Objective	KPI	Target (90 days post‑launch)
+Grow qualified traffic	Organic sessions	≥ 2 000 / mo
+Build mailing list	Newsletter sign‑ups	≥ 5 % of visitors
+Generate service interest	Click‑throughs to hipaadevelopment.com	≥ 25 / mo
+Maintain performance	Core Web Vitals	LCP < 2.5 s, CLS < 0.1 on mobile & desktop
+
+4. target audience
+Primary – Mobile and web engineers, tech leads and DevOps at healthcare start‑ups or agencies who need prescriptive HIPAA guidance.
+
+Secondary – CTOs and product managers researching compliance options for upcoming projects.
+
+User context
+
+Typically evaluates sample code, library recommendations and architecture diagrams.
+
+Reads on mobile (commute) and desktop (work).
+
+Prefers concise, opinionated content with working examples.
+
+5. features and requirements
+#	Feature	Priority	Description
+F‑01	Article rendering	P0	Pull MD content from WordPress via GraphQL, convert to MDX, display with syntax highlighting and responsive images.
+F‑02	Blog index & search / tag filter	P0	Paginated article list with tag multi‑select; URL‑driven filter state.
+F‑03	Gated checklist landing page	P0	Form captures name/email; on success returns signed URL to PDF; blocked if direct access.
+F‑04	Newsletter API integration	P0	Use EmailOctopus free tier REST API to add contacts and tag “hipaa‑dev‑checklist”.
+F‑05	Persistent CTA banner	P0	Appears on every article; links to hipaadevelopment.com; track outbound click events.
+F‑06	SEO & analytics	P0	next‑seo config, sitemap.xml, Plausible analytics, open‑graph tags per article.
+F‑07	Responsive navigation	P0	Sticky header, mobile hamburger, footer cross‑links.
+F‑08	Performance & accessibility guardrails	P0	CLS/LCP budgets, Axe audits in CI, image lazy‑loading.
+F‑09	Author workflow	P1	WordPress → webhook → ISR rebuild; docs in README.
+F‑10	Affiliate link management	P1	Component wraps external tool links with rel="sponsored" & outbound tracking.
+F‑11	Admin authentication	P2	Secure WordPress admin behind 2FA (not user‑facing but required).
+
+6. user stories and acceptance criteria
+ID	User story	Acceptance criteria
+ST‑101	As a developer, I can read an article on my phone without layout shift so that I trust the site’s quality.	1) LCP < 2.5 s on 3G Fast. 2) CLS < 0.1. 3) All code blocks horizontally scroll on ≤375 px width.
+ST‑102	As a developer, I can filter articles by “Android” tag and share the filtered URL with a teammate.	1) Tag chip toggles filter. 2) URL updates with ?tags=android. 3) Reload shows same filtered view.
+ST‑103	As a visitor, when I enter my email on the checklist page I immediately receive a valid download link.	1) Form validates email regex. 2) Successful API call creates subscriber in EmailOctopus list with tag. 3) Response returns pre‑signed S3 URL valid 15 min.
+ST‑104	As a security‑conscious visitor, I expect the checklist PDF URL to redirect if accessed without signing up.	1) Direct GET to /checklist.pdf returns 302 → landing page.
+ST‑105	As a WordPress author, when I click “Publish”, the article is live on HipaaDevelopers within 60 seconds.	1) WP webhook triggers ISR revalidate. 2) New slug accessible with correct meta.
+ST‑106	As a dev lead, I can click the CTA banner at the bottom of an article and be taken to hipaadevelopment.com in a new tab.	1) Link opens in new tab with noopener. 2) Plausible records outbound event.
+ST‑107	As an SEO analyst, I can crawl /sitemap.xml and see entries for all published articles.	1) Sitemap endpoint returns 200. 2) Contains latest slugs & changefreq metadata.
+ST‑108	As a compliance auditor, I require that all admin pages be protected by MFA.	1) WordPress admin url forces 2FA. 2) Failed challenge blocks access.
+ST‑109	As a developer, I want my email stored securely so that it cannot be leaked.	1) Email stored only in EmailOctopus (encrypted at rest). 2) No PII logged server‑side.
+ST‑110	As a data engineer, I need a database schema to log failed and successful subscriptions for analytics.	1) PostgreSQL table subscriptions with fields: id (uuid), email hash, status, timestamp. 2) Hash uses SHA‑256, email not stored in direct plaintext.
+
+7. technical requirements / stack
+Layer	Implementation	Key constraints
+Front‑end	Next.js 15 (App Router) + TypeScript	Use static export & ISR; keep bundle < 200 kB first load
+Styling/UI	Tailwind CSS 3 + shadcn/ui	Custom colour token hipaa‑blue; prefers system font
+CMS	WordPress (editor only) + wp‑graphql plugin	Hosted on managed container, enforced nightly backups
+Data	PostgreSQL (subscription logs)	Deployed via Supabase free tier
+Email	EmailOctopus Starter plan	REST API; 2 500 subs / 10 000 emails/mo free
+Analytics	Plausible (self‑hosted or basic)	No cookies; EU data region
+DevOps	GitHub Actions → Vercel previews/prod	Build cache warming; run Axe & Lighthouse CI
+Security	TLS 1.3; Well‑known security headers; WP admin behind 2FA	Periodic OWASP ZAP scan
+
+8. design and user interface
+8.1 layout principles
+Mobile‑first, single‑column reading view.
+
+Max‑width 720 px for article body on desktop to optimise line length.
+
+shadcn components for buttons, inputs, alert banners.
+
+Colour palette: #1f4fff primary, #0d1224 text, off‑white background.
+
+Code blocks: monospaced font, automatic language badge, copy‑to‑clipboard icon.
+
+8.2 navigation & footer
+Sticky header (60 px) with logo “HIPAA Developers”, links Home · Articles · About.
+
+Mobile hamburger reveals slide‑down menu.
+
+Footer includes links to sibling brands (hipaadevelopment.com, hipaainsights.com, hipaacrit.com) and legal.
+
+8.3 checklist landing page
+Hero headline, 3 bullet benefits, email form (name optional, email required).
+
+Inline success message with confetti animation on submit.
+
+Preview thumbnail of an inside page of the PDF.
+
+8.4 accessibility & branding
+All colours pass WCAG AA contrast.
+
+Skip‑to‑content link and landmark regions.
+
+Logo provided in SVG; alt text: “HIPAA Developers logo”.
